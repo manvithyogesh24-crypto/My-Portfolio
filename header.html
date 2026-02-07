@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Developer Portfolio</title>
+    <style>
+        :root {
+            --bg: #f8f6ff;
+            --text: #2d2346;
+            --accent: #a259f7;
+            --accent2: #f857a6;
+            --dark-bg: #1a1333;
+            --dark-text: #f3eaff;
+            --shadow: 0 4px 15px rgba(162,89,247,0.08);
+        }
+        
+        * { transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text);
+        }
+        
+        body.dark-mode {
+            --bg: var(--dark-bg);
+            --text: var(--dark-text);
+        }
+        
+        header { 
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            color: white; 
+            padding: 3rem 2rem; 
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: slideDown 0.6s ease;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        header h1 { 
+            margin: 0; 
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p { margin: 0.5rem 0 0 0; font-size: 1.1rem; opacity: 0.9; }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        nav a:hover {
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+            color: #fff;
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 4px 16px rgba(162,89,247,0.18);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            box-shadow: var(--shadow);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(162,89,247,0.25);
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 2rem auto; 
+            padding: 0 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0.5rem auto 0;
+        }
+        
+        .project-card { 
+            background: white;
+            border-radius: 12px; 
+            padding: 2rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.6s ease;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.dark-mode .project-card {
+            background: #2a1a3a;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(162,89,247,0.18);
+        }
+        
+        .project-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+            transition: left 0.3s cubic-bezier(.4,2,.6,1);
+        }
+        
+        .project-card:hover:before {
+            left: 0;
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                transform: translateY(30px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
+        }
+        
+        .project-card h3 { 
+            color: var(--accent2); 
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        
+        .tag { 
+            background: #f3eaff; 
+            color: var(--accent2);
+            padding: 0.4rem 0.8rem; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+        }
+        
+        body.dark-mode .tag {
+            background: #2a1a3a;
+            color: var(--accent2);
+        }
+        
+        .tag:hover {
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+            color: #fff;
+            transform: scale(1.1);
+        }
+        
+        .contact { 
+            text-align: center; 
+            margin-top: 3rem; 
+            font-size: 0.95rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .contact a {
+            color: var(--accent2);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            font-weight: 500;
+        }
+        
+        .contact a:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s ease;
+            border: 1.5px solid var(--accent2);
+        }
+        
+        body.dark-mode .contact-form {
+            background: #2a1a3a;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            background: inherit;
+            color: var(--text);
+        }
+        
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            border-color: #444;
+            background: #3a3a3a;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(248,87,166,0.18);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            display: none;
+            background: #27ae60;
+            color: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.6s ease;
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            border: 1.5px solid var(--accent2);
+        }
+        
+        body.dark-mode .stat-card {
+            background: #2a1a3a;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(248,87,166,0.18);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            color: var(--accent2);
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            font-size: 1.5rem;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 8px 25px rgba(162,89,247,0.18);
+        }
+        
+        .scroll-to-top.show {
+            display: flex;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .project-card { padding: 1.5rem; }
+            nav { gap: 0.5rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+<header>
+    <h1>Hi, I'm [Your Name]</h1>
+    <p>Python Developer | Problem Solver</p>
+    <nav>
+        <a href="#projects">Projects</a>
+        <a href="#stats">Stats</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Featured Projects</h2>
+
+    <div class="project-card">
+        <h3>String Mutator Utility</h3>
+        <p>A Python tool designed to handle string manipulation, overcoming the immutability constraints of standard Python strings.</p>
+        <div>
+            <span class="tag">Python</span>
+            <span class="tag">Algorithms</span>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <h3>Substring Finder</h3>
+        <p>A high-efficiency algorithm that identifies overlapping substrings within large datasets.</p>
+        <div>
+            <span class="tag">Logic</span>
+            <span class="tag">String Methods</span>
+        </div>
+    </div>
+
+<div class="container">
+    <h2 id="projects">Featured Projects</h2>
+
+    <div class="project-card">
+        <h3>String Mutator Utility</h3>
+        <p>A Python tool designed to handle string manipulation, overcoming the immutability constraints of standard Python strings. This efficient utility provides powerful string transformation capabilities with minimal memory overhead.</p>
+        <div>
+            <span class="tag">Python</span>
+            <span class="tag">Algorithms</span>
+            <span class="tag">Performance</span>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <h3>Substring Finder</h3>
+        <p>A high-efficiency algorithm that identifies overlapping substrings within large datasets. Optimized for speed and accuracy, it handles millions of strings with remarkable performance.</p>
+        <div>
+            <span class="tag">Logic</span>
+            <span class="tag">String Methods</span>
+            <span class="tag">Optimization</span>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <h3>Web Portfolio</h3>
+        <p>An interactive and responsive portfolio website showcasing modern web development techniques with smooth animations, dark mode support, and excellent user experience.</p>
+        <div>
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS3</span>
+            <span class="tag">JavaScript</span>
+        </div>
+    </div>
+
+    <h2 id="stats">Quick Stats</h2>
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Satisfaction</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">2+</div>
+            <div class="stat-label">Years Exp.</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Languages</div>
+        </div>
+    </div>
+
+    <h2 id="contact">Get In Touch</h2>
+    <div class="contact-form">
+        <form id="contactForm">
+            <div class="success-message" id="successMessage">✓ Message sent successfully! I'll get back to you soon.</div>
+            
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+
+    <div class="contact">
+        <p>
+            <strong>Email:</strong> <a href="mailto:you@example.com">you@example.com</a> | 
+            <strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 [Your Name]. All rights reserved. | Crafted with care ❤️</p>
+</footer>
+
+<div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</div>
+
+<script>
+    // Dark mode toggle
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDark);
+        updateThemeButton(isDark);
+    }
+    
+    function updateThemeButton(isDark) {
+        document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
+    }
+    
+    // Load saved theme preference
+    window.addEventListener('load', () => {
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        if (isDark) {
+            document.body.classList.add('dark-mode');
+            updateThemeButton(true);
+        }
+    });
+    
+    // Scroll to top button functionality
+    window.addEventListener('scroll', () => {
+        const scrollBtn = document.getElementById('scrollToTop');
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+    
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Form submission handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Show success message
+        const successMsg = document.getElementById('successMessage');
+        successMsg.style.display = 'block';
+        
+        // Reset form
+        this.reset();
+        
+        // Hide success message after 4 seconds
+        setTimeout(() => {
+            successMsg.style.display = 'none';
+        }, 4000);
+        
+        // Log form data (in production, you'd send this to a server)
+        console.log('Form submitted:', { name, email, subject, message });
+    });
+    
+    // Smooth scroll for navigation links
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const element = document.querySelector(href);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+    
+    // Add ripple effect on buttons
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+</script>
